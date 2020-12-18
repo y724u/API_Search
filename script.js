@@ -1,18 +1,17 @@
 
-// 検索ボタンがクリックされたら
-
-// エリア、店舗名、個室あるのvalを取得する
-
-// 条件に当てはまる件数を取得&表示
-
-// 取得した情報に当てはまる店舗情報（店舗画像、最寄駅から何分か、お店のカテゴリ、店舗紹介文、個室があるか否か）を１０件ずつ表示
-
-// 表示された情報をクリックされたら店舗ページへ別ウインドウへ飛ばす
-
+// 検索ボタンがsubmitされたら
 $(function () {
+  $('.js-form').on('submit', function () {
 
-  $('.js-search').on('click', function () {
-    console.log('click!!')
+    // エリア、店舗名、個室があるか、valを取得する
+    const $targetArea = $('.js-area').val();
+    const $targetStore = $('.js-store').val();
+    const $checkBox = $('.js-pvRoom').filter(':checked');
+
+    // console.log($checkBox);
+    // console.log($targetArea);
+    // console.log($targetStore);
+
     // Ajax通信を開始
     $.ajax({
       url: '',
@@ -24,27 +23,25 @@ $(function () {
     })
       .done(function (data) {
         // 通信成功時の処理を記述
-        console.log('done');
+        const test = (data.rest);
+        console.log(test);
       })
       .fail(function () {
         // 通信失敗時の処理を記述
         console.log('fail');
       });
+
+      // 条件に当てはまる件数を取得&表示
+
+
+
+      // 取得した情報に当てはまる店舗情報（店舗画像、最寄駅から何分か、お店のカテゴリ、店舗紹介文、個室があるか否か）を１０件ずつ表示
+
+
+
+      // 表示された情報をクリックされたら店舗ページへ別ウインドウへ飛ばす
   })
 });
-  // // API
-  // const api_key = ''; //アクセスキー
-	// const hit_per_page_num = 10; //一度に表示する件数
-  // const offset_page_num = 1; //初期ページ
 
-  // // API URL
-  // var url_rest = 'https://api.gnavi.co.jp/RestSearchAPI/v3/'; //レストラン検索API
-	// var url_pref = 'https://api.gnavi.co.jp/master/AreaSearchAPI/v3/'; //エリアマスタ取得API
-
-  // //API 基本パラメータ
-	// var params = {
-	// 	keyid: api_key,
-	// 	format: 'json'
-	// };
 
 

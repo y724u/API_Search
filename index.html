@@ -9,8 +9,8 @@
 </head>
 
 <body>
-  <section class="header">
-    <header class="header__container">
+  <header class="header">
+    <div class="header__container">
       <p class="header__title">ENグル</p>
       <ul class="header__list">
         <li class="header__item"><a href="#">TOP</a></li>
@@ -18,8 +18,8 @@
         <li class="header__item"><a href="#">予約履歴</a></li>
         <li class="header__item"><a href="#">ログイン</a></li>
       </ul>
-    </header>
-  </section>
+    </div>
+  </header>
 
   <section class="top">
     <div class="top__container">
@@ -29,15 +29,17 @@
 
   <section class="search">
     <div class="search__container">
-      <div class="serach__box">
-        <input class="search__area" type="text" name="" id="" placeholder="エリア">
-        <input class="search__storeName" type="text" placeholder="店舗名">
-        <input class="search__privateRoom" type="checkbox" id="js-checkbox">
-        <label class="search__label" for="js-checkbox">個室あり</label>
-      </div>
-      <div class="search__button">
-        <input class="js-search" type="button" value="検索する">
-      </div>
+      <form action="" class="js-form">
+        <div class="serach__box">
+          <input class="search__area js-area" type="text" name="" id="" placeholder="エリア">
+          <input class="search__storeName js-store" type="text" placeholder="店舗名">
+          <input class="search__privateRoom js-pvRoom" type="checkbox" id="js-checkbox">
+          <label class="search__label js-pvRoom" for="js-checkbox">個室あり</label>
+        </div>
+        <div class="search__button">
+          <input class="js-search" type="submit" value="検索する">
+        </div>
+      </form>
     </div>
   </section>
 
@@ -113,6 +115,7 @@
 
     </div>
   </section>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="./script.js"></script>
 </body>
