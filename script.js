@@ -6,7 +6,7 @@ $(function () {
     // エリア、店舗名、個室があるか、valを取得する
     const $targetArea = $('.js-area').val();
     const $targetStore = $('.js-store').val();
-    const $checkBox = $('.js-pvRoom').filter(':checked');
+    const $checkedBox = $('.js-pvRoom').filter(':checked');
 
     // console.log($checkBox);
     // console.log($targetArea);
