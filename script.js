@@ -2,7 +2,6 @@
 // 検索ボタンがsubmitされたら
 $(function () {
   $('.js-form').on('submit', function () {
-
     // エリア、店舗名、個室があるか、valを取得する
     const $targetArea = $('.js-area').val();
     const $targetStore = $('.js-store').val();
@@ -13,6 +12,8 @@ $(function () {
     // console.log($targetStore);
 
     // Ajax通信を開始
+    let $id = $('#id');
+
     $.ajax({
       url: '',
       type: 'GET',
@@ -23,6 +24,10 @@ $(function () {
     })
       .done(function (data) {
         // 通信成功時の処理を記述
+        $.each(data.rest , function(i , id){
+          $id.append('<li>' + i + '<li>');
+        });
+        // console.log(JSON.stringify(data.rest));
         const test = (data.rest);
         console.log(test);
       })
