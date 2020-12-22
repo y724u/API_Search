@@ -13,9 +13,9 @@ $(function () {
 
     // Ajax通信を開始
     let $id = $('#id');
-
+    const API_KEY = '';
     $.ajax({
-      url: '',
+      url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${$targetArea}&name=${$targetStore}`,
       type: 'GET',
       dataType: 'json',
       // フォーム要素の内容をハッシュ形式に変換
