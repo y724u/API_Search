@@ -30,14 +30,31 @@ $(function () {
 
         // 検索結果件数
         let $hitCounts = data.total_hit_count;
+        const mainBlock = document.getElementById('id');
 
         for (let index = 0; index < data.rest.length; index++) {
           let element = data.rest[index];
-          console.log(element);
+          // console.log(element);
 
           // 店名
           let $restName = element.name;
           // console.log($restName);
+          // $('#id').after(`<dt class="result__storeName"><a href="#">${$restName}</a></dt>`);
+        //   let node = document.createElement('div');
+        //   node.innerHTML = element.name;
+        //   console.log(node);
+
+
+        //   let img = document.createElement('img');
+        //   img.src = element.image_url.shop_image1;
+        //   console.log(img);
+        //   let anker = document.createElement('a');
+        //   anker.href = element.url;
+        //   anker.innerHTML = element.url;
+        //   console.log(anker);
+        //   node.appendChild(img);
+        // node.appendChild(anker);
+        // mainBlock.appendChild(node);
 
           // 最寄駅
           let $station = element.access.station;
@@ -47,17 +64,33 @@ $(function () {
           let $walk = element.access.walk;
           // console.log($walk);
 
+          // $('.result__storeName').after(`<dd class="result__location">${$walk}</dd>`);
+
+
           // 店舗案内文
           let $pr = element.pr.pr_short;
-          // console.log($pr);
 
           // URL
           let $url = element.url;
           // console.log($url);
 
           // 店舗画像
-          let $image = element.image_url.shop_image1;
-          // console.log($image);
+          let $image = element.image_url.shop_image1
+
+          const $div = $('<div>', { id:'hoge', class:'fuga', text:'piyo' });
+
+          const $img = $("<img>", {src: $image, alt:'店舗イメージ'});
+
+          // テストIDの後ろに配置
+          $('#id').append($img);
+
+          // imgをidで囲う
+          $($img).wrap($div);
+
+          // カテゴリ
+          let $category = element.category;
+          console.log($category);
+
         }
 
       })
@@ -66,17 +99,21 @@ $(function () {
         console.log('fail');
       });
 
-      // 条件に当てはまる件数を取得&表示
+    // 条件に当てはまる件数を取得&表示
 
 
 
-      // 取得した情報に当てはまる店舗情報（店舗画像、最寄駅から何分か、お店のカテゴリ、店舗紹介文、個室があるか否か）を１０件ずつ表示
+    // 取得した情報に当てはまる店舗情報（店舗画像、最寄駅から何分か、お店のカテゴリ、店舗紹介文、個室があるか否か）を１０件ずつ表示
 
 
 
-      // 表示された情報をクリックされたら店舗ページへ別ウインドウへ飛ばす
+    // 表示された情報をクリックされたら店舗ページへ別ウインドウへ飛ばす
   })
 });
 
 
+// let node = document.createElement('div');
+// node.innerHTML = element.name;
+// console.log(node);
+// $('.result__storeName').after(node);
 
