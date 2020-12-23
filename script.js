@@ -7,7 +7,7 @@ $(function () {
     const $targetStore = $('.js-store').val();
     const $checkedBox = $('.js-pvRoom').filter(':checked');
 
-    // console.log($checkBox);
+    // console.log($checkedBox);
     // console.log($targetArea);
     // console.log($targetStore);
 
@@ -15,7 +15,7 @@ $(function () {
     let $id = $('#id');
     const API_KEY = '';
     $.ajax({
-      url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${$targetArea}&name=${$targetStore}&private_room=1`,
+      url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${$targetArea}&name=${$targetStore}&private_room=${$checkedBox.length}`,
       // private_room=1 は絞り込みあり、０はなし
 
       type: 'GET',
@@ -36,25 +36,10 @@ $(function () {
           let element = data.rest[index];
           // console.log(element);
 
+
           // 店名
           let $restName = element.name;
           // console.log($restName);
-          // $('#id').after(`<dt class="result__storeName"><a href="#">${$restName}</a></dt>`);
-        //   let node = document.createElement('div');
-        //   node.innerHTML = element.name;
-        //   console.log(node);
-
-
-        //   let img = document.createElement('img');
-        //   img.src = element.image_url.shop_image1;
-        //   console.log(img);
-        //   let anker = document.createElement('a');
-        //   anker.href = element.url;
-        //   anker.innerHTML = element.url;
-        //   console.log(anker);
-        //   node.appendChild(img);
-        // node.appendChild(anker);
-        // mainBlock.appendChild(node);
 
           // 最寄駅
           let $station = element.access.station;
@@ -63,9 +48,6 @@ $(function () {
           // 駅から何分
           let $walk = element.access.walk;
           // console.log($walk);
-
-          // $('.result__storeName').after(`<dd class="result__location">${$walk}</dd>`);
-
 
           // 店舗案内文
           let $pr = element.pr.pr_short;
@@ -77,20 +59,44 @@ $(function () {
           // 店舗画像
           let $image = element.image_url.shop_image1
 
-          const $div = $('<div>', { id:'hoge', class:'fuga', text:'piyo' });
+          // const $li = $('<li>', {class:'result__item', text:'' });
 
-          const $img = $("<img>", {src: $image, alt:'店舗イメージ'});
+          // const $div = $('<div>', {class:'result__image', text:'' });
 
-          // テストIDの後ろに配置
-          $('#id').append($img);
+          // const $img = $("<img>", {src: $image, alt:'店舗イメージ'});
 
-          // imgをidで囲う
-          $($img).wrap($div);
+          // const $dl = $('<dl>', {class:'result__content', text:'' });
+
+          // const $a = $("<a>", {href: $url});
+
+          // // テストIDの後ろに配置
+          // $('#id').append($img);
+
+          // // imgをliで囲う
+          // $($img).wrap($li);
+
+          // // imgをdivで囲う
+          // $($img).wrap($div);
 
           // カテゴリ
           let $category = element.category;
-          console.log($category);
+          // console.log($category);
 
+
+          $('#id').append(
+            `<li class="result__item">
+            <div class="result__image">
+            <img src="${$image}" alt="店舗イメージ">
+            </div>
+            <dl class="result__content" id='js'>
+            <dt class="result__storeName">
+            <a href="${$url}" " target="_blank" rel="noopener noreferrer">${$restName}</a>
+            </dt>
+            <dd class="result__location">${$station} 徒歩${$walk}分 / ${$category}</dd>
+            <dd class="result__description">${$pr}</dd>
+            <dd class="result__privateRoom">完全個室</dd>
+            </dl>
+            </li>`);
         }
 
       })
