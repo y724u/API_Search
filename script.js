@@ -7,10 +7,6 @@ $(function () {
     const $targetStore = $('.js-store').val();
     const $checkedBox = $('.js-pvRoom').filter(':checked');
 
-    // console.log($checkedBox);
-    // console.log($targetArea);
-    // console.log($targetStore);
-
     // Ajax通信を開始
     let $id = $('#id');
     const API_KEY = '';
@@ -30,7 +26,20 @@ $(function () {
 
         // 検索結果件数
         let $hitCounts = data.total_hit_count;
-        const mainBlock = document.getElementById('id');
+        console.log($hitCounts);
+
+        let $showedPage = $('.result__item').length + 10;
+        console.log($showedPage);
+
+        if ($('.result__page').length) {
+
+          $('.result__page').replaceWith(`<p class='result__page'>1~${$showedPage}件を表示 / 全${$hitCounts}件</p>`);
+        } else {
+          $('.result__container').prepend(`<p class='result__page'>1~${$showedPage}件を表示 / 全${$hitCounts}件</p>`);
+
+          $('.result__container').append(`<p class='result__page'>1~${$showedPage}件を表示 / 全${$hitCounts}件</p>`);
+        }
+
 
         for (let index = 0; index < data.rest.length; index++) {
           let element = data.rest[index];
@@ -59,31 +68,11 @@ $(function () {
           // 店舗画像
           let $image = element.image_url.shop_image1
 
-          // const $li = $('<li>', {class:'result__item', text:'' });
-
-          // const $div = $('<div>', {class:'result__image', text:'' });
-
-          // const $img = $("<img>", {src: $image, alt:'店舗イメージ'});
-
-          // const $dl = $('<dl>', {class:'result__content', text:'' });
-
-          // const $a = $("<a>", {href: $url});
-
-          // // テストIDの後ろに配置
-          // $('#id').append($img);
-
-          // // imgをliで囲う
-          // $($img).wrap($li);
-
-          // // imgをdivで囲う
-          // $($img).wrap($div);
-
           // カテゴリ
           let $category = element.category;
           // console.log($category);
 
-
-          $('#id').append(
+          $('.result__list').append(
             `<li class="result__item">
             <div class="result__image">
             <img src="${$image}" alt="店舗イメージ">
@@ -116,10 +105,3 @@ $(function () {
     // 表示された情報をクリックされたら店舗ページへ別ウインドウへ飛ばす
   })
 });
-
-
-// let node = document.createElement('div');
-// node.innerHTML = element.name;
-// console.log(node);
-// $('.result__storeName').after(node);
-

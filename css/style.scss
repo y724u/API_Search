@@ -143,6 +143,11 @@ body {
 }
 
 .result {
+
+  &__page {
+    margin: 20px 0;
+  }
+
   &__container {
     width: 960px;
     margin: 0 auto;
