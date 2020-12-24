@@ -52,7 +52,10 @@ $(function () {
           // console.log($walk);
 
           // 店舗案内文
-          let $pr = element.pr.pr_short;
+          let $pr = element.pr.pr_long;
+          console.log($pr);
+          const result = $pr.indexOf('個室');
+          console.log(result);
 
           // URL
           let $url = element.url;
@@ -86,8 +89,12 @@ $(function () {
         // if(($checkedBox.length) === 1) {
         //   console.log('ok');
         //   $('.result__description').append('<dd class="result__privateRoom">完全個室</dd>');
-        // }else if ($('result__privateRoom').length===0){
+        // }else if ($('result__privateRoom').length === 0){
+        //   console.log('no');
         // };
+
+
+
       })
       .fail(function () {
         // 通信失敗時の処理を記述

@@ -650,6 +650,7 @@ body {
 
 .result__description {
   font-size: 14px;
+  line-height: 21px;
 }
 
 .result__privateRoom {
