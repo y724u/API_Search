@@ -79,6 +79,10 @@ body {
     width: 316px;
     height: 44px;
     padding-left: 39px;
+
+    &::placeholder {
+      color: #aaaaaa;
+    }
   }
 
   &__storeName {
@@ -91,6 +95,10 @@ body {
     height: 44px;
     margin-left: 20px;
     padding-left: 39px;
+
+    &::placeholder {
+      color: #aaaaaa;
+    }
   }
 
   &__privateRoom {

@@ -550,6 +550,10 @@ body {
   padding-left: 39px;
 }
 
+.search__area::placeholder {
+  color: #aaaaaa;
+}
+
 .search__storeName {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20width%3D%2216%22%20height%3D%2214%22%20viewBox%3D%220%200%2016%2014%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M14.6667%200.333252H1.33333V1.99992H14.6667V0.333252ZM15.5%208.66658V6.99992L14.6667%202.83325H1.33333L0.5%206.99992V8.66658H1.33333V13.6666H9.66667V8.66658H13V13.6666H14.6667V8.66658H15.5ZM8%2011.9999H3V8.66658H8V11.9999Z%22%20fill%3D%22%23E32E2E%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
@@ -560,6 +564,10 @@ body {
   height: 44px;
   margin-left: 20px;
   padding-left: 39px;
+}
+
+.search__storeName::placeholder {
+  color: #aaaaaa;
 }
 
 .search__privateRoom {

@@ -1,4 +1,3 @@
-
 // 検索ボタンがsubmitされたら
 $(function () {
   $('.js-form').on('submit', function () {
@@ -8,7 +7,7 @@ $(function () {
     // 個室ありにチェックがされているかprivate_room=1 は絞り込みあり、0はなし
     const $checkedBox = $('.js-pvRoom').filter(':checked');
     // Ajax通信を開始
-    const API_KEY = '';
+    const API_KEY = 'b448e3ec0071bee3486473b06e574985';
     $.ajax({
       url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${$targetArea}&name=${$targetStore}&private_room=${$checkedBox.length}`,
       type: 'GET',
