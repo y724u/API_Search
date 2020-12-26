@@ -156,6 +156,7 @@ body {
   }
 
   &__container {
+    overflow: hidden;
     width: 960px;
     margin: 0 auto;
   }
@@ -191,7 +192,10 @@ body {
 
   &__description {
     font-size: 14px;
+    height: 88px;
     line-height: 21px;
+    position: relative;
+    overflow: hidden;
   }
 
   &__privateRoom {

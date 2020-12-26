@@ -623,6 +623,7 @@ body {
 }
 
 .result__container {
+  overflow: hidden;
   width: 960px;
   margin: 0 auto;
 }
@@ -658,7 +659,10 @@ body {
 
 .result__description {
   font-size: 14px;
+  height: 88px;
   line-height: 21px;
+  position: relative;
+  overflow: hidden;
 }
 
 .result__privateRoom {

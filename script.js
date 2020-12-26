@@ -7,7 +7,7 @@ $(function () {
     // 個室ありにチェックがされているかprivate_room=1 は絞り込みあり、0はなし
     const $checkedBox = $('.js-pvRoom').filter(':checked');
     // Ajax通信を開始
-    const API_KEY = 'b448e3ec0071bee3486473b06e574985';
+    const API_KEY = '';
     $.ajax({
       url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${$targetArea}&name=${$targetStore}&private_room=${$checkedBox.length}`,
       type: 'GET',
@@ -77,11 +77,39 @@ $(function () {
                     <a href="${$url}" " target="_blank" rel="noopener noreferrer">${$restName}</a>
                   </dt>
                   <dd class="result__location">${$station} 徒歩${$walk}分 / ${$category}</dd>
-                  <dd class="result__description">${$pr}</dd>
+                  <dd class="result__description js-description">${$pr}</dd>
                 </dl>
               </li>`);
           }
         }
+        // 店舗紹介文...で表示する(.js-description)
+        $(function() {
+          $('.js-description').each(function() {
+            let $target = $('.result__description');
+            // オリジナルの文章を取得する
+            let html = $target.html();
+            // 対象の要素を、高さにautoを指定し非表示で複製する
+            let $clone = $target.clone();
+            $clone
+              .css({
+                display: 'none',
+                position : 'absolute',
+                overflow : 'visible'
+              })
+              .width($target.width())
+              .height('auto');
+            // DOMを一旦追加
+            $target.after($clone);
+            // 指定した高さになるまで、1文字ずつ消去していく
+            while((html.length > 0) && ($clone.height() > $target.height())) {
+              html = html.substr(0, html.length - 1);
+              $clone.html(html + '...');
+            }
+            // 文章を入れ替えて、複製した要素を削除する
+            $target.html($clone.html());
+            $clone.remove();
+          });
+        });
       })
       .fail(function () {
         // 通信失敗時の処理を記述
