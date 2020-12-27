@@ -1,15 +1,21 @@
+// API_KEY
+const API_KEY = '';
 // 検索ボタンがsubmitされたら
 $(function () {
-  $('.js-form').on('submit', function () {
+  $('.js-form').on('submit', function (e) {
+     // submit処理停止
+    e.preventDefault();
+    // 既に検索結果がある場合
+    $('.js-item , .js-result').remove();
     // エリア、店舗名、個室があるか、valを取得する
-    const $targetArea = $('.js-area').val();
-    const $targetStore = $('.js-store').val();
-    // 個室ありにチェックがされているかprivate_room=1 は絞り込みあり、0はなし
-    const $checkedBox = $('.js-pvRoom').filter(':checked');
+    const storeArea = $('.js-area').val();
+    const storeName = $('.js-store').val();
+    // 個室ありにチェックがされているか,private_room=1 は絞り込みあり、0はなし
+    // チェックが入っていれば１を代入、入っていない場合は０を代入
+    const isPrivate = $('.js-pvRoom').prop('checked') ? 1 : 0;
     // Ajax通信を開始
-    const API_KEY = '';
     $.ajax({
-      url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${$targetArea}&name=${$targetStore}&private_room=${$checkedBox.length}`,
+      url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${storeArea}&name=${storeName}&private_room=${isPrivate}&hit_per_page=20`,
       type: 'GET',
       dataType: 'json',
       // フォーム要素の内容をハッシュ形式に変換
@@ -18,10 +24,11 @@ $(function () {
     })
       .done(function (data) {
         // 通信成功時の処理を記述
+
         // 検索結果件数
         let $hitCounts = data.total_hit_count;
         // 現在表示しているページを表示
-        let $showedPages = $('.result__item').length + 10;
+        let $showedPages = $('.js-item').length + 20;
         // (.result__page)を格納
         const $result = $(`<p class='result__page js-result'>1~${$showedPages}件を表示 / 全${$hitCounts}件</p>`)
         if ($('.js-result').length) {
@@ -53,11 +60,11 @@ $(function () {
           // 検索結果を表示
           if ($privateRoom > -1) {
             $('.js-list').append(
-              `<li class="result__item">
+              `<li class="result__item js-item">
                 <div class="result__image">
                   <img src="${$image}" alt="店舗イメージ">
                 </div>
-                <dl class="result__content" id='js'>
+                <dl class="result__content">
                   <dt class="result__storeName">
                     <a href="${$url}" " target="_blank" rel="noopener noreferrer">${$restName}</a>
                   </dt>
@@ -68,7 +75,7 @@ $(function () {
               </li>`);
           } else {
             $('.js-list').append(
-              `<li class="result__item">
+              `<li class="result__item js-item">
                 <div class="result__image">
                   <img src="${$image}" alt="店舗イメージ">
                 </div>
@@ -81,36 +88,38 @@ $(function () {
                 </dl>
               </li>`);
           }
+
         }
         // 店舗紹介文...で表示する(.js-description)
         $(function() {
-          $('.js-description').each(function() {
-            let $target = $('.result__description');
+          $('.js-description , .result__description').each(function() {
+            let $targetArticles = $(this);
             // オリジナルの文章を取得する
-            let html = $target.html();
+            let html = $targetArticles.html();
             // 対象の要素を、高さにautoを指定し非表示で複製する
-            let $clone = $target.clone();
+            let $clone = $targetArticles.clone();
             $clone
               .css({
                 display: 'none',
                 position : 'absolute',
                 overflow : 'visible'
               })
-              .width($target.width())
+              .width($targetArticles.width())
               .height('auto');
             // DOMを一旦追加
-            $target.after($clone);
+            $targetArticles.after($clone);
             // 指定した高さになるまで、1文字ずつ消去していく
-            while((html.length > 0) && ($clone.height() > $target.height())) {
+            while((html.length > 0) && ($clone.height() > $targetArticles.height())) {
               html = html.substr(0, html.length - 1);
               $clone.html(html + '...');
             }
             // 文章を入れ替えて、複製した要素を削除する
-            $target.html($clone.html());
+            $targetArticles.html($clone.html());
             $clone.remove();
           });
         });
       })
+
       .fail(function () {
         // 通信失敗時の処理を記述
         console.log('fail');
