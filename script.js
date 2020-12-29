@@ -15,20 +15,24 @@ $(function () {
     const isPrivate = $('.js-pvRoom').prop('checked') ? 1 : 0;
     // Ajax通信を開始
     $.ajax({
-      url: `https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=${API_KEY}&address=${storeArea}&name=${storeName}&private_room=${isPrivate}&hit_per_page=20`,
+      url:'https://api.gnavi.co.jp/RestSearchAPI/v3/',
       type: 'GET',
       dataType: 'json',
-      // フォーム要素の内容をハッシュ形式に変換
-      data: $('form').serializeArray(),
+      data:{
+        keyid : API_KEY ,
+        address: storeArea ,
+        name : storeName ,
+        private_room : isPrivate ,
+        hit_per_page : 20 ,
+      },
       timeout: 5000,
     })
       .done(function (data) {
         // 通信成功時の処理を記述
-
         // 検索結果件数
-        let $hitCounts = data.total_hit_count;
+        const $hitCounts = data.total_hit_count;
         // 現在表示しているページを表示
-        let $showedPages = $('.js-item').length + 20;
+        const $showedPages = $('.js-item').length + 20;
         // (.result__page)を格納
         const $result = $(`<p class='result__page js-result'>1~${$showedPages}件を表示 / 全${$hitCounts}件</p>`)
         if ($('.js-result').length) {
