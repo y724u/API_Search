@@ -27,8 +27,8 @@ $(function () {
       },
       timeout: 5000,
     })
+    // 通信成功時の処理を記述
       .done(function (data) {
-        // 通信成功時の処理を記述
         // 検索結果件数
         const $hitCounts = data.total_hit_count;
         // 現在表示しているページを表示
@@ -62,7 +62,7 @@ $(function () {
           // カテゴリ
           let $category = element.category;
           // 検索結果を表示
-          if ($privateRoom > -1) {
+          if ($privateRoom > -1 || isPrivate === 1) {
             $('.js-list').append(
               `<li class="result__item js-item">
                 <div class="result__image">
@@ -92,7 +92,6 @@ $(function () {
                 </dl>
               </li>`);
           }
-
         }
         // 店舗紹介文...で表示する(.js-description)
         $(function() {
