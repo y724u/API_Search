@@ -1,5 +1,5 @@
 // API_KEY
-const API_KEY = '';
+const API_KEY = 'b448e3ec0071bee3486473b06e574985';
 // 検索ボタンがsubmitされたら
 $(function () {
   $('.js-form').on('submit', function (e) {
