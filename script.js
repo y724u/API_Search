@@ -10,7 +10,6 @@ $(function () {
     // エリア、店舗名、個室があるか、valを取得する
     const storeArea = $('.js-area').val();
     const storeName = $('.js-store').val();
-    // 個室ありにチェックがされているか,private_room=1 は絞り込みあり、0はなし
     // チェックが入っていれば１を代入、入っていない場合は０を代入
     const isPrivate = $('.js-pvRoom').prop('checked') ? 1 : 0;
     // Ajax通信を開始
@@ -29,19 +28,28 @@ $(function () {
     })
     // 通信成功時の処理を記述
       .done(function (data) {
+
+
         // 検索結果件数
         const hitCounts = data.total_hit_count;
-        // 現在表示しているページを表示
-        const showedPages = $('.js-item').length + 20;
-        // (.result__page)を格納
-        const $result = $(`<p class='result__page js-result'>1~${showedPages}件を表示 / 全${hitCounts}件</p>`)
-        if ($('.js-result').length) {
-          $('.js-result').replaceWith($result);
-        } else {
-          $('.js-container').append($result);
+        // 表示件数とヒット件数を表示
+        $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
+
+        $('.js-container').append(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
+
+       
           // $resultが使えない
-          $('.js-container').prepend(`<p class='result__page js-result'>1~${showedPages}件を表示 / 全${hitCounts}件</p>`);
-        };
+          // $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
+
+        // if ($('.js-result').length) {
+        //   $('.js-result').replaceWith($result);
+        // } else {
+        //   $('.js-container').append($result);
+        //   // $resultが使えない
+        //   $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
+        // };
+
+
         // データ取り出し
         for (let index = 0; index < data.rest.length; index++) {
           let element = data.rest[index];
@@ -130,3 +138,7 @@ $(function () {
       });
   })
 });
+
+// function addHitPages () {
+
+// }
