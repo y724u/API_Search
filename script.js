@@ -5,7 +5,7 @@ $(function () {
   $('.js-form').on('submit', function (e) {
      // submit処理停止
     e.preventDefault();
-    // 既に検索結果がある場合
+    // 既に検索結果がある場合は既存の検索結果を削除する
     $('.js-item , .js-result').remove();
     // エリア、店舗名、個室があるか、valを取得する
     const storeArea = $('.js-area').val();
@@ -28,27 +28,12 @@ $(function () {
     })
     // 通信成功時の処理を記述
       .done(function (data) {
-
-
         // 検索結果件数
         const hitCounts = data.total_hit_count;
         // 表示件数とヒット件数を表示
         $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
 
         $('.js-container').append(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
-
-       
-          // $resultが使えない
-          // $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
-
-        // if ($('.js-result').length) {
-        //   $('.js-result').replaceWith($result);
-        // } else {
-        //   $('.js-container').append($result);
-        //   // $resultが使えない
-        //   $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
-        // };
-
 
         // データ取り出し
         for (let index = 0; index < data.rest.length; index++) {
@@ -138,7 +123,3 @@ $(function () {
       });
   })
 });
-
-// function addHitPages () {
-
-// }
