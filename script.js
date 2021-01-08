@@ -1,5 +1,5 @@
 // API_KEY
-const API_KEY = '';
+const API_KEY = 'b448e3ec0071bee3486473b06e574985';
 
 // 検索ボタンがsubmitされたら
 $(function () {
@@ -45,6 +45,15 @@ $(function () {
   });
 });
 
+// 検索結果ページを追加する
+function addHitPages(data) {
+  // 検索結果件数
+  const hitCounts = data.total_hit_count;
+  // 表示件数とヒット件数を表示
+  $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
+  $('.js-container').append(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
+}
+
 // APIデータを取得、挿入
 function insertApiDate(data, isPrivate) {
   for (let index = 0; index < data.rest.length; index++) {
@@ -63,7 +72,7 @@ function insertApiDate(data, isPrivate) {
     let image = element.image_url.shop_image1
     // カテゴリ
     let category = element.category;
-      // 検索結果を表示（個室がある場合は個室タグを挿入）
+    // 検索結果を表示（個室がある場合は個室タグを挿入）
     if (isPrivate === 1) {
       $('.js-list').append(
         `<li class="result__item js-item">
@@ -97,15 +106,7 @@ function insertApiDate(data, isPrivate) {
   }
 }
 
-// 検索結果ページを追加する
-function addHitPages(data) {
-  // 検索結果件数
-  const hitCounts = data.total_hit_count;
-  // 表示件数とヒット件数を表示
-  $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
-  $('.js-container').append(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
-}
-
+// 店舗案内文が長文の場合にドットに変換する
 function changeToDot() {
   // 店舗紹介文...で表示する(.js-description)
   $('.js-description , .result__description').each(function () {
