@@ -1,5 +1,5 @@
 // API_KEY
-const API_KEY = '';
+const API_KEY = 'b448e3ec0071bee3486473b06e574985';
 
 // 検索ボタンがsubmitされたら
 $(function () {
@@ -57,21 +57,21 @@ function addHitPages(data) {
 // APIデータを取得、挿入
 function insertApiDate(data, isPrivate) {
   for (let index = 0; index < data.rest.length; index++) {
-    let element = data.rest[index];
+    let rest = data.rest[index];
     // 店名
-    let restName = element.name;
+    let restName = rest.name;
     // 最寄駅
-    let station = element.access.station;
+    let station = rest.access.station;
     // 駅から何分
-    let walk = element.access.walk;
+    let walk = rest.access.walk;
     // 店舗案内文
-    let pr = element.pr.pr_long;
+    let pr = rest.pr.pr_long;
     // URL
-    let url = element.url;
+    let url = rest.url;
     // 店舗画像
-    let image = element.image_url.shop_image1
+    let image = rest.image_url.shop_image1
     // カテゴリ
-    let category = element.category;
+    let category = rest.category;
     // 検索結果を表示（個室がある場合は個室タグを挿入）
     if (isPrivate === 1) {
       $('.js-list').append(
@@ -108,8 +108,8 @@ function insertApiDate(data, isPrivate) {
 
 // 店舗案内文が長文の場合にドットに変換する
 function changeToDot() {
-  // 店舗紹介文...で表示する(.js-description)
-  $('.js-description , .result__description').each(function () {
+  // 店舗紹介文...で表示する
+  $('.js-description').each(function () {
     let $targetArticles = $(this);
     // オリジナルの文章を取得する
     let html = $targetArticles.html();
