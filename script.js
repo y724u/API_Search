@@ -1,13 +1,12 @@
 // API_KEY
 const API_KEY = '';
-
 // 検索ボタンがsubmitされたら
 $(function () {
   $('.js-form').on('submit', function (e) {
     // submit処理停止
     e.preventDefault();
     // 既に検索結果がある場合は既存の検索結果を削除する
-    $('.js-item , .js-result').remove();
+    $('.js-item').remove();
     // エリアvalを取得する
     const storeArea = $('.js-area').val();
     // 店舗名valを取得する
@@ -30,29 +29,21 @@ $(function () {
     })
       // 通信成功時の処理を記述
       .done(function (data) {
-        // 検索結果ページを追加する
-        addHitPages(data);
         // APIデータを取得、挿入
         insertApiDate(data, isPrivate);
+        // 検索結果ページを追加する
+        addHitPages(data);
         // 店舗案内文が長文の場合にドットに変換する
         changeToDot();
       })
 
+      // 通信失敗時、検索結果がない場合の処理を記述
       .fail(function () {
-        // 通信失敗時の処理を記述
-        console.log('fail');
+        // 検索結果が既に表示されていたらテキストを削除する
+        $('.js-result').text('');
       });
   });
 });
-
-// 検索結果ページを追加する
-function addHitPages(data) {
-  // 検索結果件数
-  const hitCounts = data.total_hit_count;
-  // 表示件数とヒット件数を表示
-  $('.js-container').prepend(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
-  $('.js-container').append(`<p class='result__page js-result'>1~20件を表示 / 全${hitCounts}件</p>`);
-}
 
 // APIデータを取得、挿入
 function insertApiDate(data, isPrivate) {
@@ -104,6 +95,16 @@ function insertApiDate(data, isPrivate) {
         </li>`);
     }
   }
+}
+
+// 検索結果ページを追加する
+function addHitPages(data) {
+  // 検索ヒット合計件数
+  const hitCounts = data.total_hit_count;
+  // 表示件数
+  const showCounts = $('.js-item').length;
+  // 表示件数と検索ヒット件数をテキストに追加する
+  $('.js-result').text(`1~${showCounts}件を表示 / 全${hitCounts}件`);
 }
 
 // 店舗案内文が長文の場合にドットに変換する
