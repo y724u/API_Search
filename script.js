@@ -48,21 +48,21 @@ $(function () {
 // APIデータを取得、挿入
 function insertApiDate(data, isPrivate) {
   for (let index = 0; index < data.rest.length; index++) {
-    let rest = data.rest[index];
+    const rest = data.rest[index];
     // 店名
-    let restName = rest.name;
+    const restName = rest.name;
     // 最寄駅
-    let station = rest.access.station;
+    const station = rest.access.station;
     // 駅から何分
-    let walk = rest.access.walk;
+    const walk = rest.access.walk;
     // 店舗案内文
-    let pr = rest.pr.pr_long;
+    const pr = rest.pr.pr_long;
     // URL
-    let url = rest.url;
+    const url = rest.url;
     // 店舗画像
-    let image = rest.image_url.shop_image1
+    const image = rest.image_url.shop_image1
     // カテゴリ
-    let category = rest.category;
+    const category = rest.category;
     // 検索結果を表示（個室がある場合は個室タグを挿入）
     if (isPrivate === 1) {
       $('.js-list').append(
